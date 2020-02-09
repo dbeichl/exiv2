@@ -63,7 +63,8 @@ namespace Exiv2 {
         TiffHeaderBase(uint16_t  tag,
                        uint32_t  size,
                        ByteOrder byteOrder,
-                       uint32_t  offset);
+                       uint32_t  offset,
+                       uint32_t  fileOffset=0);
         //! Virtual destructor.
         virtual ~TiffHeaderBase() =0;
         //@}
@@ -85,6 +86,8 @@ namespace Exiv2 {
         virtual void setByteOrder(ByteOrder byteOrder);
         //! Set the offset to the start of the root directory.
         virtual void setOffset(uint32_t offset);
+
+        virtual void setFileOffset(uint32_t offset);
         //@}
 
         //! @name Accessors
@@ -111,6 +114,8 @@ namespace Exiv2 {
         virtual uint32_t size() const;
         //! Return the tag value (magic number) which identifies the buffer as TIFF data.
         virtual uint16_t tag() const;
+
+        virtual uint32_t fileOffset() const;
         /*!
           @brief Return \c true if the %Exif \em tag from \em group is an image tag.
 
@@ -136,7 +141,7 @@ namespace Exiv2 {
         const uint32_t size_;      //!< Size of the header
         ByteOrder      byteOrder_; //!< Applicable byte order
         uint32_t       offset_;    //!< Offset to the start of the root dir
-
+        uint32_t       fileoffset_;
     }; // class TiffHeaderBase
 
     //! Convenience function to check if tag, group is in the list of TIFF image tags.
@@ -331,7 +336,6 @@ namespace Exiv2 {
                   OffsetWriter*      pOffsetWriter
         );
 
-    private:
         /*!
           @brief Parse TIFF metadata from a data buffer \em pData of length
                  \em size into a TIFF composite structure.
@@ -351,6 +355,7 @@ namespace Exiv2 {
                   uint32_t           root,
                   TiffHeaderBase*    pHeader
         );
+    private:
         /*!
           @brief Find primary groups in the source tree provided and populate
                  the list of primary groups.

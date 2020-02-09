@@ -1485,7 +1485,10 @@ namespace Exiv2 {
 
         // -----------------------------------------------------------------------
         // Root directory of Panasonic RAW images
-        { Tag::pana, ifdIdNotSet,      newTiffDirectory<panaRawId>               },
+        { Tag::pana,  ifdIdNotSet,      newTiffDirectory<panaRawId>              },
+        { Tag::canon, ifdIdNotSet,      newTiffDirectory<canonId>                },
+        { Tag::exif,  ifdIdNotSet,      newTiffDirectory<exifId>                 },
+        { Tag::gps,   ifdIdNotSet,      newTiffDirectory<gpsId>                  },
 
         // IFD0 of Panasonic RAW images
         {    0x8769, panaRawId,        newTiffSubIfd<exifId>                     },
@@ -1719,10 +1722,11 @@ namespace Exiv2 {
         if (!pHeader->read(pData, size) || pHeader->offset() >= size) {
             throw Error(kerNotAnImage, "TIFF");
         }
+
         TiffComponent::UniquePtr rootDir = TiffCreator::create(root, ifdIdNotSet);
         if (0 != rootDir.get()) {
             rootDir->setStart(pData + pHeader->offset());
-            TiffRwState state(pHeader->byteOrder(), 0);
+            TiffRwState state(pHeader->byteOrder(), pHeader->fileOffset());
             TiffReader reader(pData, size, rootDir.get(), state);
             rootDir->accept(reader);
             reader.postProcess();
@@ -1767,11 +1771,13 @@ namespace Exiv2 {
     TiffHeaderBase::TiffHeaderBase(uint16_t  tag,
                                    uint32_t  size,
                                    ByteOrder byteOrder,
-                                   uint32_t  offset)
+                                   uint32_t  offset,
+                                   uint32_t  fileOffset)
         : tag_(tag),
           size_(size),
           byteOrder_(byteOrder),
-          offset_(offset)
+          offset_(offset),
+          fileoffset_(fileOffset)
     {
     }
 
@@ -1854,6 +1860,17 @@ namespace Exiv2 {
     {
         offset_ = offset;
     }
+
+    uint32_t TiffHeaderBase::fileOffset() const
+    {
+        return fileoffset_;
+    }
+
+    void TiffHeaderBase::setFileOffset(uint32_t offset)
+    {
+        fileoffset_ = offset;
+    }
+
 
     uint32_t TiffHeaderBase::size() const
     {

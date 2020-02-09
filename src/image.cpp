@@ -33,6 +33,7 @@
 #include "unused.h"
 
 #include "cr2image.hpp"
+#include "cr3image.hpp"
 #include "crwimage.hpp"
 #include "jpgimage.hpp"
 #include "mrwimage.hpp"
@@ -103,6 +104,7 @@ namespace {
         { ImageType::jpeg, newJpegInstance, isJpegType, amReadWrite, amReadWrite, amReadWrite, amReadWrite },
         { ImageType::exv,  newExvInstance,  isExvType,  amReadWrite, amReadWrite, amReadWrite, amReadWrite },
         { ImageType::cr2,  newCr2Instance,  isCr2Type,  amReadWrite, amReadWrite, amReadWrite, amNone      },
+        { ImageType::cr3,  newCr3Instance,  isCr3Type,  amRead,      amRead,      amRead,      amNone      },
         { ImageType::crw,  newCrwInstance,  isCrwType,  amReadWrite, amNone,      amNone,      amReadWrite },
         { ImageType::mrw,  newMrwInstance,  isMrwType,  amRead,      amRead,      amRead,      amNone      },
         { ImageType::tiff, newTiffInstance, isTiffType, amReadWrite, amReadWrite, amReadWrite, amNone      },

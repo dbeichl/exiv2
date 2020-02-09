@@ -52,6 +52,7 @@ namespace Exiv2
         tiff,
         webp,
         xmp,        ///< XMP sidecar files
+        cr3,
     };
 }  // namespace Exiv2
 

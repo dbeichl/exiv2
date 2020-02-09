@@ -15,6 +15,7 @@ add_library( exiv2lib_int OBJECT
     canonmn_int.cpp         canonmn_int.hpp
     casiomn_int.cpp         casiomn_int.hpp
     cr2header_int.cpp       cr2header_int.hpp
+    cr3header_int.cpp       cr3header_int.hpp
     crwimage_int.cpp        crwimage_int.hpp
     fujimn_int.cpp          fujimn_int.hpp
     helper_functions.cpp    helper_functions.hpp
@@ -53,6 +54,7 @@ add_library( exiv2lib
     bmpimage.cpp            ../include/exiv2/bmpimage.hpp
     convert.cpp             ../include/exiv2/convert.hpp
     cr2image.cpp            ../include/exiv2/cr2image.hpp
+    cr3image.cpp            ../include/exiv2/cr3image.hpp
     crwimage.cpp            ../include/exiv2/crwimage.hpp
     datasets.cpp            ../include/exiv2/datasets.hpp
     easyaccess.cpp          ../include/exiv2/easyaccess.hpp

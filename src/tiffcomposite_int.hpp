@@ -80,6 +80,9 @@ namespace Exiv2 {
         const uint32_t next = 0x30000; //!< Special tag: next IFD
         const uint32_t all  = 0x40000; //!< Special tag: all tags in a group
         const uint32_t pana = 0x80000; //!< Special tag: root IFD of Panasonic RAW images
+        const uint32_t canon= 0x90000; //!< Special tag. root IFD of Canon CR3 images
+        const uint32_t exif = 0xa0000; //!< Special tag. root IFD of Canon CR3 images
+        const uint32_t gps  = 0xb0000; //!< Special tag. root IFD of Canon CR3 images
     }
 
     /*!
